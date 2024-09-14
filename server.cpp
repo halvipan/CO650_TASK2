@@ -23,9 +23,6 @@ int main()
     server->Listen(sock);
     int clientSocket = server->Accept(sock);
     server->SendAndReceive(clientSocket);
-
-    // STEP 7 - DISCONNECT
-
     close(sock);
 
     return 0;
