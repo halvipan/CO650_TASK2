@@ -34,28 +34,8 @@ void *receiver(void *sock)
             cout.flush();
         }
     }
-}
 
-void *client_handler(void *clientSocket)
-{
-    cout << "entered thread" << endl;
-    int client = *(int *)clientSocket;  // Correctly dereference the pointer
-
-    // setup receiver thread
-    pthread_t thread;
-    pthread_create(&thread, nullptr, receiver, (void *)clientSocket);
-    pthread_detach(thread);
-
-    while (true) {
-        char message[200];
-        cout << "> ";
-        cout.flush();
-        cin.getline(message,200);
-
-        int sendRes = send(client, message, 200, 0);
-        if (sendRes == -1)
-            cout << "Server: send() error" << endl;
-    }
+    terminate();
 }
 
 int main()
@@ -68,15 +48,21 @@ int main()
     server->Listen(sock);
     int clientSocket = server->Accept(sock);
 
-    cout << "accept successful! Now connected to the client and creating thread" << endl;
-
-    // Allocate memory to pass the clientSocket to the thread
-    int *clientSockPtr = (int *)malloc(sizeof(int));
-    *clientSockPtr = clientSocket;
 
     pthread_t thread;
-    pthread_create(&thread, nullptr, client_handler, (void *)clientSockPtr);
-    pthread_join(thread, nullptr);
+    pthread_create(&thread, nullptr, receiver, &clientSocket);
+    pthread_detach(thread);
+
+    while (true) {
+        char message[200];
+        cout << "> ";
+        cout.flush();
+        cin.getline(message,200);
+
+        int sendRes = send(clientSocket, message, 200, 0);
+        if (sendRes == -1)
+            cout << "Server: send() error" << endl;
+    }
 
     // STEP 7 - DISCONNECT
 

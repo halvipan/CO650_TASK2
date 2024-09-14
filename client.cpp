@@ -51,12 +51,8 @@ int main()
     cout << "connection okay - now connected to Server" << endl;
 
     // STEP 4 - SEND & RECV
-
-    // setup receiver thread
-    int *SockPtr = (int *)malloc(sizeof(int));
-    *SockPtr = sock;
     pthread_t thread;
-    pthread_create(&thread, nullptr, receiver, (void *)SockPtr);
+    pthread_create(&thread, nullptr, receiver, &sock);
     pthread_detach(thread);
 
     while (true) {
