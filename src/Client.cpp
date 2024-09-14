@@ -1,4 +1,5 @@
 #include <iostream>
+#include <arpa/inet.h>
 #include "Client.h"
 
 using namespace std;

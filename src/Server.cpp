@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 #include "Server.h"
 
 using namespace std;
