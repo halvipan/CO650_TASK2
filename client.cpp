@@ -36,17 +36,13 @@ void *receiver(void *sock)
 
 int main()
 {
-    sockaddr_in service{};
-    string address = "127.0.0.1";
-
     Comms* comms = new Comms();
+
     int sock = comms->CreateSocket();
 
-    // STEP 3 - CONNECT ON CLIENT SOCKET
-    service.sin_family = AF_INET;
-    inet_pton(AF_INET, address.c_str(), &service.sin_addr);
-    service.sin_port = htons(5400);
+    sockaddr_in service = comms->CreateAddress();
 
+    // STEP 3 - CONNECT ON CLIENT SOCKET
     int connectRes = connect(sock, (sockaddr*)&service, sizeof(service));
     if (connectRes == -1) {
         cout << "error with connection" << endl;

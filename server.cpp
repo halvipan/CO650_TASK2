@@ -59,17 +59,12 @@ void *client_handler(void *clientSocket)
 
 int main()
 {
-    sockaddr_in service{};
-    string address = "127.0.0.1";
-
     Comms* comms = new Comms();
+
     int sock = comms->CreateSocket();
+    sockaddr_in service = comms->CreateAddress();
 
     // STEP 3 - Part of Bind
-    service.sin_family = AF_INET;
-    inet_pton(AF_INET, address.c_str(), &service.sin_addr);
-    service.sin_port = htons(5400);
-
     if (bind(sock, (sockaddr*)&service, sizeof(service)) == -1) {
         cout << "bind() failed: " << endl;
         exit(EXIT_FAILURE);

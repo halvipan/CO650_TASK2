@@ -4,6 +4,7 @@
 class Comms {
 public:
     int CreateSocket();
+    sockaddr_in CreateAddress();
 };
 
 #endif //CO650_TASK2_COMMS_H
