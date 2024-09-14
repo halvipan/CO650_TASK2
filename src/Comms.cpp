@@ -8,7 +8,6 @@ using namespace std;
 
 Comms::Comms() {
     string address = "127.0.0.1";
-    service.sin_family = AF_INET;
     inet_pton(AF_INET, address.c_str(), &service.sin_addr);
     service.sin_port = htons(5400);
 }

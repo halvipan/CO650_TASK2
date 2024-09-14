@@ -1,7 +1,6 @@
 #ifndef CO650_TASK2_SERVER_H
 #define CO650_TASK2_SERVER_H
 
-#include <arpa/inet.h>
 #include "Comms.h"
 
 class Server : public Comms {
