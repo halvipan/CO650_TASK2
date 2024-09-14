@@ -42,25 +42,7 @@ int main()
     int sock = client->CreateSocket();
     sockaddr_in service = client->CreateAddress();
     client->Connect(sock, service);
-
-    // STEP 4 - SEND & RECV
-    pthread_t thread;
-    pthread_create(&thread, nullptr, receiver, &sock);
-    pthread_detach(thread);
-
-    while (true) {
-        char message[200];
-        cout << "> ";
-        cout.flush();
-        cin.getline(message,200);
-
-        if (strcmp(message, "SHUTDOWN") == 0)
-            break;
-
-        int sendRes = send(sock, message, 200, 0);
-        if (sendRes == -1)
-            cout << "Client: send() error" << endl;
-    }
+    client->SendAndReceive(sock);
 
     // STEP 5 - CLEANUP / DISCONNECT
     close(sock);
