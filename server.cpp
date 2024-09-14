@@ -65,20 +65,9 @@ int main()
     int sock = server->CreateSocket();
     sockaddr_in service = server->CreateAddress();
     server->Bind(sock, service);
+    server->Listen(sock);
+    int clientSocket = server->Accept(sock);
 
-    // STEP 4 - LISTENING
-    if (listen(sock, SOMAXCONN) == -1) {
-        cout << "listen failed" << endl;
-        exit(EXIT_FAILURE);
-    }
-    cout << "listening..." << endl;
-
-    // STEP 5 - ACCEPT
-    sockaddr_in client{};
-    socklen_t clientSize = sizeof(client);
-
-    int clientSocket = accept(sock, (sockaddr*)&client, &clientSize);
-    if (clientSocket == -1) cout << "accept error" << endl;
     cout << "accept successful! Now connected to the client and creating thread" << endl;
 
     // Allocate memory to pass the clientSocket to the thread

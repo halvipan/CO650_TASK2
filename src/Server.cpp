@@ -11,3 +11,20 @@ void Server::Bind(int sock, sockaddr_in service) {
     }
     cout << "bind() successful" << endl;
 }
+
+void Server::Listen(int sock) {
+    if (listen(sock, SOMAXCONN) == -1) {
+        cout << "listen failed" << endl;
+        exit(EXIT_FAILURE);
+    }
+    cout << "listening..." << endl;
+}
+
+int Server::Accept(int sock) {
+    sockaddr_in client{};
+    socklen_t clientSize = sizeof(client);
+
+    int clientSocket = accept(sock, (sockaddr*)&client, &clientSize);
+    if (clientSocket == -1) cout << "accept error" << endl;
+    return clientSocket;
+}
