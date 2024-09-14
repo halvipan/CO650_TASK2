@@ -6,7 +6,7 @@
 
 class Server : public Comms {
 public:
-    void Bind(int sock, sockaddr_in service);
+    void Bind(int sock);
     void Listen(int sock);
     int Accept(int sock);
 };

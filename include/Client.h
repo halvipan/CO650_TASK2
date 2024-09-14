@@ -6,7 +6,7 @@
 
 class Client : public Comms {
 public:
-    void Connect(int sock, sockaddr_in service);
+    void Connect(int sock);
 };
 
 #endif //CO650_TASK2_CLIENT_H

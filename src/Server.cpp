@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void Server::Bind(int sock, sockaddr_in service) {
+void Server::Bind(int sock) {
     if (bind(sock, (sockaddr*)&service, sizeof(service)) == -1) {
         cout << "bind() failed: " << endl;
         exit(EXIT_FAILURE);

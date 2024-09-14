@@ -8,8 +8,7 @@ int main()
     Client* client = new Client();
 
     int sock = client->CreateSocket();
-    sockaddr_in service = client->CreateAddress();
-    client->Connect(sock, service);
+    client->Connect(sock);
     client->SendAndReceive(sock);
     close(sock);
 

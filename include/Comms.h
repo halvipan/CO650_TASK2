@@ -3,11 +3,15 @@
 
 class Comms {
 public:
+    Comms();
     int CreateSocket();
-    sockaddr_in CreateAddress();
     void SendAndReceive(int socket);
+
 private:
     static void* receiver(void *sock);
+
+protected:
+    sockaddr_in service;
 };
 
 #endif //CO650_TASK2_COMMS_H

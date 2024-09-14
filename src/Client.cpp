@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void Client::Connect(int sock, sockaddr_in service) {
+void Client::Connect(int sock) {
     int connectRes = connect(sock, (sockaddr*)&service, sizeof(service));
     if (connectRes == -1) {
         cout << "error with connection" << endl;
