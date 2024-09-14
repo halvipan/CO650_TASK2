@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include "Comms.h"
+#include "Server.h"
 
 using namespace std;
 
@@ -59,17 +60,11 @@ void *client_handler(void *clientSocket)
 
 int main()
 {
-    Comms* comms = new Comms();
+    Server* server = new Server();
 
-    int sock = comms->CreateSocket();
-    sockaddr_in service = comms->CreateAddress();
-
-    // STEP 3 - Part of Bind
-    if (bind(sock, (sockaddr*)&service, sizeof(service)) == -1) {
-        cout << "bind() failed: " << endl;
-        exit(EXIT_FAILURE);
-    }
-    cout << "bind() successful" << endl;
+    int sock = server->CreateSocket();
+    sockaddr_in service = server->CreateAddress();
+    server->Bind(sock, service);
 
     // STEP 4 - LISTENING
     if (listen(sock, SOMAXCONN) == -1) {

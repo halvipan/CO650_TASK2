@@ -1,0 +1,13 @@
+#include <iostream>
+#include <sys/socket.h>
+#include "Server.h"
+
+using namespace std;
+
+void Server::Bind(int sock, sockaddr_in service) {
+    if (bind(sock, (sockaddr*)&service, sizeof(service)) == -1) {
+        cout << "bind() failed: " << endl;
+        exit(EXIT_FAILURE);
+    }
+    cout << "bind() successful" << endl;
+}
