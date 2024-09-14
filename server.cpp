@@ -1,17 +1,7 @@
-#include <arpa/inet.h>
-#include <iostream>
-#include <cstring>
-#include <string>
-#include <sys/socket.h>
-#include <sys/types.h>
 #include <unistd.h>
-#include <pthread.h>
-#include "Comms.h"
 #include "Server.h"
 
 using namespace std;
-
-// adapted from Jasmin Martin's code (thank you!)
 
 int main()
 {
