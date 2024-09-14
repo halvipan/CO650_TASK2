@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include "Comms.h"
+#include "Client.h"
 
 using namespace std;
 
@@ -36,19 +37,11 @@ void *receiver(void *sock)
 
 int main()
 {
-    Comms* comms = new Comms();
+    Client* client = new Client();
 
-    int sock = comms->CreateSocket();
-
-    sockaddr_in service = comms->CreateAddress();
-
-    // STEP 3 - CONNECT ON CLIENT SOCKET
-    int connectRes = connect(sock, (sockaddr*)&service, sizeof(service));
-    if (connectRes == -1) {
-        cout << "error with connection" << endl;
-        exit(EXIT_FAILURE);
-    }
-    cout << "connection okay - now connected to Server" << endl;
+    int sock = client->CreateSocket();
+    sockaddr_in service = client->CreateAddress();
+    client->Connect(sock, service);
 
     // STEP 4 - SEND & RECV
     pthread_t thread;

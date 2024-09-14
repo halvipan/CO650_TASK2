@@ -14,4 +14,5 @@ add_executable(CO650_TASK2_SERVER
 add_executable(CO650_TASK2_CLIENT
         client.cpp
         src/Comms.cpp
+        src/Client.cpp
 )
