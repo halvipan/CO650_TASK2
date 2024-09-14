@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <pthread.h>
+#include "Comms.h"
 
 using namespace std;
 
@@ -61,13 +62,8 @@ int main()
     sockaddr_in service{};
     string address = "127.0.0.1";
 
-    // STEP 2  - CREATE THE SOCKET
-    int sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (sock == -1) {
-        cout << "error with creating socket" << endl;
-        exit(EXIT_FAILURE);
-    }
-    cout << "socket created" << endl;
+    Comms* comms = new Comms();
+    int sock = comms->CreateSocket();
 
     // STEP 3 - Part of Bind
     service.sin_family = AF_INET;
