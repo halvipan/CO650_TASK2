@@ -33,6 +33,9 @@ void Comms::SendAndReceive(int socket) {
         cout.flush();
         cin.getline(message,200);
 
+        if (ShutdownCondition(message))
+            break;
+
         int sendRes = send(socket, message, 200, 0);
         if (sendRes == -1)
             cout << "Server: send() error" << endl;
@@ -54,11 +57,15 @@ void* Comms::receiver(void *sock) {
             break;
         } else {
             cout << "\033[1A" << "\033[2K";
-            cout <<  "\033[31m" << buffer << "\033[0m" << endl;
+            cout << "\033[31m" << buffer << "\033[0m" << endl;
             cout << "> ";
             cout.flush();
         }
     }
 
     terminate();
+}
+
+bool Comms::ShutdownCondition(char* message) {
+    return false;
 }

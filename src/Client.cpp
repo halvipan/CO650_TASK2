@@ -12,3 +12,7 @@ void Client::Connect(int sock) {
     }
     cout << "connection okay - now connected to Server" << endl;
 }
+
+bool Client::ShutdownCondition(char *message) {
+    return strcmp(message, "SHUTDOWN") == 0;
+}
