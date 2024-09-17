@@ -30,7 +30,6 @@ void Comms::SendAndReceive(int socket) {
     while (true) {
         char message[200];
         cout << "> ";
-        cout.flush();
         cin.getline(message,200);
 
         if (ShutdownCondition(message))
@@ -50,13 +49,12 @@ void* Comms::receiver(void *sock) {
         char buffer[200] = "";
         int recvRes = recv(server, buffer, 200, 0);
         if (recvRes == -1) {
-            cout << "RECV ERROR" << endl;
+            cout << "RECV ERROR: " << strerror(errno) << endl;
             break;
         } else if (recvRes == 0) {
-            cout << "DISCONNECT" << endl;
+            cout << "Received 0 bytes, Disconnect" << endl;
             break;
         } else {
-            cout << "\033[1A" << "\033[2K";
             cout << "\033[31m" << buffer << "\033[0m" << endl;
             cout << "> ";
             cout.flush();

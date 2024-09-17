@@ -7,7 +7,7 @@ using namespace std;
 
 void Server::Bind(int sock) {
     if (bind(sock, (sockaddr*)&service, sizeof(service)) == -1) {
-        cout << "bind() failed: " << endl;
+        cout << "BIND ERROR: " << strerror(errno) << endl;
         exit(EXIT_FAILURE);
     }
     cout << "bind() successful" << endl;
@@ -15,7 +15,7 @@ void Server::Bind(int sock) {
 
 void Server::Listen(int sock) {
     if (listen(sock, SOMAXCONN) == -1) {
-        cout << "listen failed" << endl;
+        cout << "LISTEN ERROR: " << strerror(errno) << endl;
         exit(EXIT_FAILURE);
     }
     cout << "listening..." << endl;
@@ -26,6 +26,9 @@ int Server::Accept(int sock) {
     socklen_t clientSize = sizeof(client);
 
     int clientSocket = accept(sock, (sockaddr*)&client, &clientSize);
-    if (clientSocket == -1) cout << "accept error" << endl;
+    if (clientSocket == -1) {
+        cout << "ACCEPT ERROR: " << strerror(errno) << endl;
+        exit(EXIT_FAILURE);
+    }
     return clientSocket;
 }
