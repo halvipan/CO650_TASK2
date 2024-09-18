@@ -9,10 +9,12 @@ add_executable(CO650_TASK2_SERVER
         server.cpp
         src/Comms.cpp
         src/Server.cpp
+        src/CreateSocketException.cpp
 )
 
 add_executable(CO650_TASK2_CLIENT
         client.cpp
         src/Comms.cpp
         src/Client.cpp
+        src/CreateSocketException.cpp
 )

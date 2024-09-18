@@ -1,8 +1,8 @@
 #include <iostream>
 #include <sys/socket.h>
-#include <arpa/inet.h>
 #include <pthread.h>
 #include "Comms.h"
+#include "CreateSocketException.h"
 
 using namespace std;
 
@@ -15,10 +15,8 @@ Comms::Comms() {
 int Comms::CreateSocket() {
     int sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (sock == -1) {
-        cout << "error with creating socket" << endl;
-        exit(EXIT_FAILURE);
+        throw CreateSocketException(errno);
     }
-    cout << "socket created" << endl;
     return sock;
 }
 
