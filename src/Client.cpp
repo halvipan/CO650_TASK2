@@ -9,5 +9,5 @@ void Client::Connect(int sock) {
 }
 
 bool Client::ShutdownCondition(char *message) {
-    return strcmp(message, "SHUTDOWN") == 0;
+    return strcmp(message, "QUIT") == 0;
 }
