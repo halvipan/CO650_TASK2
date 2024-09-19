@@ -2,15 +2,15 @@
 #define CO650_TASK2_CREATESOCKETEXCEPTION_H
 
 #include <map>
+#include "WhatWhyExceptionBase.h"
 
-using namespace std;
-
-class CreateSocketException : public exception {
+class CreateSocketException : public WhatWhyExceptionBase {
 public:
-    int errnumber;
-    CreateSocketException(errno_t errnumber);
+    explicit CreateSocketException(int errNumber);
     const char* what() const _NOEXCEPT override;
-    const char* why() const _NOEXCEPT;
+    const char* why() const _NOEXCEPT override;
+
+private:
     static const map<int, const char*> errors;
 };
 

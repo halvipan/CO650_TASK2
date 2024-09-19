@@ -1,16 +1,13 @@
-#include <iostream>
 #include "CreateSocketException.h"
 
-using namespace std;
-
-CreateSocketException::CreateSocketException(errno_t errnumber) : errnumber(errnumber) {};
+CreateSocketException::CreateSocketException(int errNumber) : WhatWhyExceptionBase(errNumber) {};
 
 const char *CreateSocketException::what() const _NOEXCEPT {
     return "CreateSocketException: Socket Creation Failed";
 }
 
 const char *CreateSocketException::why() const noexcept {
-    return errors.at(errnumber);
+    return errors.at(errNumber);
 }
 
 const map<int, const char*> CreateSocketException::errors = {
