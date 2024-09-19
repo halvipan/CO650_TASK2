@@ -4,6 +4,7 @@
 #include "Server.h"
 #include "BindException.h"
 #include "ListenException.h"
+#include "AcceptException.h"
 
 void Server::Bind(int sock) {
     int bindRes = bind(sock, (sockaddr*)&service, sizeof(service));
@@ -25,8 +26,7 @@ int Server::Accept(int sock) {
 
     int clientSocket = accept(sock, (sockaddr*)&client, &clientSize);
     if (clientSocket == -1) {
-        std::cout << "ACCEPT ERROR: " << strerror(errno) << std::endl;
-        exit(EXIT_FAILURE);
+        throw AcceptException(errno);
     }
     return clientSocket;
 }
