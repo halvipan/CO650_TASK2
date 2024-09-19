@@ -5,6 +5,7 @@
 #include "BindException.h"
 #include "ListenException.h"
 #include "AcceptException.h"
+#include "SendException.h"
 
 void Server::Bind(int sock) {
     int bindRes = bind(sock, (sockaddr*)&service, sizeof(service));
@@ -23,4 +24,26 @@ int Server::Accept(int sock) {
     int clientSocket = accept(sock, (sockaddr*)&client, &clientSize);
     if (clientSocket == -1) throw AcceptException(errno);
     return clientSocket;
+}
+
+void Server::SendAndReceive(int socket) {
+    pthread_t sendThread;
+    pthread_create(&sendThread, nullptr, sender, &socket);
+
+    receiver(&socket);
+}
+
+void* Server::sender(void *sock) {
+    int socket = *(int *)sock;
+
+    while (true) {
+        char message[200];
+        std::cout << "> ";
+        std::cin.getline(message,200);
+
+        int sendRes = send(socket, message, 200, 0);
+        if (sendRes == -1) throw SendException(errno);
+    }
+
+    return nullptr;
 }

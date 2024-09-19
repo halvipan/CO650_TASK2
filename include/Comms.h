@@ -7,10 +7,9 @@ class Comms {
 public:
     Comms();
     int CreateSocket();
-    void SendAndReceive(int socket);
-    virtual bool ShutdownCondition(char *message);
+    virtual void SendAndReceive(int socket) = 0;
 
-private:
+protected:
     static void* receiver(void *sock);
 
 protected:

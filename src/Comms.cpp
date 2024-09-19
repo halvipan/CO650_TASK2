@@ -18,23 +18,6 @@ int Comms::CreateSocket() {
     return sock;
 }
 
-void Comms::SendAndReceive(int socket) {
-    pthread_t thread;
-    pthread_create(&thread, nullptr, receiver, &socket);
-    pthread_detach(thread);
-
-    while (true) {
-        char message[200];
-        std::cout << "> ";
-        std::cin.getline(message,200);
-
-        if (ShutdownCondition(message)) break;
-
-        int sendRes = send(socket, message, 200, 0);
-        if (sendRes == -1) throw SendException(errno);
-    }
-}
-
 void* Comms::receiver(void *sock) {
     int socket = *(int *)sock;
 
@@ -56,8 +39,4 @@ void* Comms::receiver(void *sock) {
     }
 
     return nullptr;
-}
-
-bool Comms::ShutdownCondition(char* message) {
-    return false;
 }

@@ -6,7 +6,9 @@
 class Client : public Comms {
 public:
     void Connect(int sock);
-    bool ShutdownCondition(char *message) override;
+    void SendAndReceive(int socket) override;
+private:
+    static void* sender(void *sock);
 };
 
 #endif //CO650_TASK2_CLIENT_H
