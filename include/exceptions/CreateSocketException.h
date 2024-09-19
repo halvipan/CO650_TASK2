@@ -11,7 +11,7 @@ public:
     const char* why() const _NOEXCEPT override;
 
 private:
-    static const map<int, const char*> errors;
+    static const std::map<int, const char*> errors;
 };
 
 #endif //CO650_TASK2_CREATESOCKETEXCEPTION_H

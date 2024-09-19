@@ -3,8 +3,6 @@
 #include "Server.h"
 #include "CreateSocketException.h"
 
-using namespace std;
-
 int main()
 {
     Server* server = new Server();
@@ -18,8 +16,8 @@ int main()
         close(sock);
     }
     catch (CreateSocketException &e) {
-        cout << e.what() << endl;
-        cout << e.why() << endl;
+        std::cout << e.what() << std::endl;
+        std::cout << e.why() << std::endl;
     }
 
     return 0;

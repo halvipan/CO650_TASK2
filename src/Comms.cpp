@@ -4,10 +4,8 @@
 #include "Comms.h"
 #include "CreateSocketException.h"
 
-using namespace std;
-
 Comms::Comms() {
-    string address = "127.0.0.1";
+    std::string address = "127.0.0.1";
     inet_pton(AF_INET, address.c_str(), &service.sin_addr);
     service.sin_port = htons(5400);
 }
@@ -27,15 +25,15 @@ void Comms::SendAndReceive(int socket) {
 
     while (true) {
         char message[200];
-        cout << "> ";
-        cin.getline(message,200);
+        std::cout << "> ";
+        std::cin.getline(message,200);
 
         if (ShutdownCondition(message))
             break;
 
         int sendRes = send(socket, message, 200, 0);
         if (sendRes == -1)
-            cout << "Server: send() error" << endl;
+            std::cout << "Server: send() error" << std::endl;
     }
 }
 
@@ -47,19 +45,19 @@ void* Comms::receiver(void *sock) {
         char buffer[200] = "";
         int recvRes = recv(server, buffer, 200, 0);
         if (recvRes == -1) {
-            cout << "RECV ERROR: " << strerror(errno) << endl;
+            std::cout << "RECV ERROR: " << strerror(errno) << std::endl;
             break;
         } else if (recvRes == 0) {
-            cout << "Received 0 bytes, Disconnect" << endl;
+            std::cout << "Received 0 bytes, Disconnect" << std::endl;
             break;
         } else {
-            cout << "\033[31m" << buffer << "\033[0m" << endl;
-            cout << "> ";
-            cout.flush();
+            std::cout << "\033[31m" << buffer << "\033[0m" << std::endl;
+            std::cout << "> ";
+            std::cout.flush();
         }
     }
 
-    terminate();
+    std::terminate();
 }
 
 bool Comms::ShutdownCondition(char* message) {

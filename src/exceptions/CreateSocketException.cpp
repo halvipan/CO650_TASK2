@@ -10,7 +10,7 @@ const char *CreateSocketException::why() const noexcept {
     return errors.at(errNumber);
 }
 
-const map<int, const char*> CreateSocketException::errors = {
+const std::map<int, const char*> CreateSocketException::errors = {
     {EAFNOSUPPORT, "The implementation does not support the specified address family."},
     {EMFILE, "No more file descriptors are available for this process."},
     {ENFILE, "No more file descriptors are available for the system."},

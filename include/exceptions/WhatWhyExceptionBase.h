@@ -3,9 +3,7 @@
 
 #include <exception>
 
-using namespace std;
-
-class WhatWhyExceptionBase : public exception {
+class WhatWhyExceptionBase : public std::exception {
 public:
     explicit WhatWhyExceptionBase(int errNumber) : errNumber(errNumber) {}
     virtual const char* why() const _NOEXCEPT = 0;

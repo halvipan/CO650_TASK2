@@ -2,15 +2,13 @@
 #include <arpa/inet.h>
 #include "Client.h"
 
-using namespace std;
-
 void Client::Connect(int sock) {
     int connectRes = connect(sock, (sockaddr*)&service, sizeof(service));
     if (connectRes == -1) {
-        cout << "error with connection" << endl;
+        std::cout << "error with connection" << std::endl;
         exit(EXIT_FAILURE);
     }
-    cout << "connection okay - now connected to Server" << endl;
+    std::cout << "connection okay - now connected to Server" << std::endl;
 }
 
 bool Client::ShutdownCondition(char *message) {
