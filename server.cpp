@@ -1,7 +1,7 @@
 #include <iostream>
 #include <unistd.h>
 #include "Server.h"
-#include "CreateSocketException.h"
+#include "WhatWhyExceptionBase.h"
 
 int main()
 {
@@ -15,7 +15,7 @@ int main()
         server->SendAndReceive(clientSocket);
         close(sock);
     }
-    catch (CreateSocketException &e) {
+    catch (WhatWhyExceptionBase &e) {
         std::cout << e.what() << std::endl;
         std::cout << e.why() << std::endl;
     }
