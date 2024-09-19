@@ -2,23 +2,21 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include "Server.h"
-
-using namespace std;
+#include "BindException.h"
 
 void Server::Bind(int sock) {
-    if (bind(sock, (sockaddr*)&service, sizeof(service)) == -1) {
-        cout << "BIND ERROR: " << strerror(errno) << endl;
-        exit(EXIT_FAILURE);
+    int bindRes = bind(sock, (sockaddr*)&service, sizeof(service));
+    if (bindRes == -1) {
+        throw BindException(errno);
     }
-    cout << "bind() successful" << endl;
 }
 
 void Server::Listen(int sock) {
     if (listen(sock, SOMAXCONN) == -1) {
-        cout << "LISTEN ERROR: " << strerror(errno) << endl;
+        std::cout << "LISTEN ERROR: " << strerror(errno) << std::endl;
         exit(EXIT_FAILURE);
     }
-    cout << "listening..." << endl;
+    std::cout << "listening..." << std::endl;
 }
 
 int Server::Accept(int sock) {
@@ -27,7 +25,7 @@ int Server::Accept(int sock) {
 
     int clientSocket = accept(sock, (sockaddr*)&client, &clientSize);
     if (clientSocket == -1) {
-        cout << "ACCEPT ERROR: " << strerror(errno) << endl;
+        std::cout << "ACCEPT ERROR: " << strerror(errno) << std::endl;
         exit(EXIT_FAILURE);
     }
     return clientSocket;

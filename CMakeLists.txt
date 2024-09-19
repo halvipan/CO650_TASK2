@@ -11,6 +11,7 @@ add_executable(CO650_TASK2_SERVER
         src/Comms.cpp
         src/Server.cpp
         src/exceptions/CreateSocketException.cpp
+        src/exceptions/BindException.cpp
 )
 
 add_executable(CO650_TASK2_CLIENT
