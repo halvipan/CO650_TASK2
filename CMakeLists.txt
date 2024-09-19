@@ -21,4 +21,5 @@ add_executable(CO650_TASK2_CLIENT
         src/Comms.cpp
         src/Client.cpp
         src/exceptions/CreateSocketException.cpp
+        src/exceptions/ConnectException.cpp
 )
