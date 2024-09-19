@@ -4,6 +4,7 @@
 #include "Comms.h"
 #include "CreateSocketException.h"
 #include "SendException.h"
+#include "ReceiveException.h"
 
 Comms::Comms() {
     std::string address = "127.0.0.1";
@@ -29,8 +30,7 @@ void Comms::SendAndReceive(int socket) {
         std::cout << "> ";
         std::cin.getline(message,200);
 
-        if (ShutdownCondition(message))
-            break;
+        if (ShutdownCondition(message)) break;
 
         int sendRes = send(socket, message, 200, 0);
         if (sendRes == -1) throw SendException(errno);
@@ -44,18 +44,20 @@ void* Comms::receiver(void *sock) {
     {
         char buffer[200] = "";
         int recvRes = recv(server, buffer, 200, 0);
-        if (recvRes == -1) {
-            std::cout << "RECV ERROR: " << strerror(errno) << std::endl;
-            break;
-        } else if (recvRes == 0) {
+
+        if (recvRes == -1) throw ReceiveException(errno);
+
+        if (recvRes == 0) {
             std::cout << "Received 0 bytes, Disconnect" << std::endl;
             break;
-        } else {
-            std::cout << "\033[31m" << buffer << "\033[0m" << std::endl;
-            std::cout << "> ";
-            std::cout.flush();
         }
+
+        std::cout << "\033[31m" << buffer << "\033[0m" << std::endl;
+        std::cout << "> ";
+        std::cout.flush();
     }
+
+    return nullptr;
 }
 
 bool Comms::ShutdownCondition(char* message) {

@@ -12,7 +12,6 @@ const char *SendException::why() const noexcept {
 
 const std::map<int, const char*> SendException::errors = {
         {EAGAIN,"The socket's file descriptor is marked O_NONBLOCK and the requested operation would block."},
-        {EWOULDBLOCK,"The socket's file descriptor is marked O_NONBLOCK and the requested operation would block."},
         {EBADF, "The socket argument is not a valid file descriptor."},
         {ECONNRESET, "A connection was forcibly closed by a peer."},
         {EDESTADDRREQ, "The socket is not connection-mode and no peer address is set."},
