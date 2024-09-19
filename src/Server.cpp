@@ -3,6 +3,7 @@
 #include <arpa/inet.h>
 #include "Server.h"
 #include "BindException.h"
+#include "ListenException.h"
 
 void Server::Bind(int sock) {
     int bindRes = bind(sock, (sockaddr*)&service, sizeof(service));
@@ -12,11 +13,10 @@ void Server::Bind(int sock) {
 }
 
 void Server::Listen(int sock) {
-    if (listen(sock, SOMAXCONN) == -1) {
-        std::cout << "LISTEN ERROR: " << strerror(errno) << std::endl;
-        exit(EXIT_FAILURE);
+    int listenRes = listen(sock, SOMAXCONN);
+    if (listenRes == -1) {
+        throw ListenException(errno);
     }
-    std::cout << "listening..." << std::endl;
 }
 
 int Server::Accept(int sock) {
