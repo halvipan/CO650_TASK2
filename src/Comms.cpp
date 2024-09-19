@@ -36,12 +36,12 @@ void Comms::SendAndReceive(int socket) {
 }
 
 void* Comms::receiver(void *sock) {
-    int server = *(int *)sock;
+    int socket = *(int *)sock;
 
     while(true)
     {
         char buffer[200] = "";
-        int recvRes = recv(server, buffer, 200, 0);
+        int recvRes = recv(socket, buffer, 200, 0);
 
         if (recvRes == -1) throw ReceiveException(errno);
 
