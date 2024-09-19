@@ -14,6 +14,7 @@ protected:
 
 protected:
     sockaddr_in service;
+    static const char* ADDRESS;
 };
 
 #endif //CO650_TASK2_COMMS_H

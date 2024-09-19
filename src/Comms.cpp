@@ -3,12 +3,12 @@
 #include <pthread.h>
 #include "Comms.h"
 #include "CreateSocketException.h"
-#include "SendException.h"
 #include "ReceiveException.h"
 
+const char* Comms::ADDRESS = "127.0.0.1";
+
 Comms::Comms() {
-    std::string address = "127.0.0.1";
-    inet_pton(AF_INET, address.c_str(), &service.sin_addr);
+    inet_pton(AF_INET, ADDRESS, &service.sin_addr);
     service.sin_port = htons(5400);
 }
 
@@ -29,7 +29,7 @@ void* Comms::receiver(void *sock) {
         if (recvRes == -1) throw ReceiveException(errno);
 
         if (recvRes == 0) {
-            std::cout << "Received 0 bytes, Disconnect" << std::endl;
+            std::cout << "Received 0 bytes, Disconnecting" << std::endl;
             break;
         }
 

@@ -7,6 +7,7 @@
 void Client::Connect(int sock) {
     int connectRes = connect(sock, (sockaddr*)&service, sizeof(service));
     if (connectRes == -1) throw ConnectException(errno);
+    std::cout << "Connecting on " << ADDRESS << service.sin_port << std::endl;
 }
 
 void Client::SendAndReceive(int socket) {

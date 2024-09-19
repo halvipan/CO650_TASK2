@@ -15,6 +15,7 @@ void Server::Bind(int sock) {
 void Server::Listen(int sock) {
     int listenRes = listen(sock, SOMAXCONN);
     if (listenRes == -1) throw ListenException(errno);
+    std::cout << "Now Listening on " << ADDRESS << service.sin_port << std::endl;
 }
 
 int Server::Accept(int sock) {
