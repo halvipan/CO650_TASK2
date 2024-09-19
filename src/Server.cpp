@@ -8,16 +8,12 @@
 
 void Server::Bind(int sock) {
     int bindRes = bind(sock, (sockaddr*)&service, sizeof(service));
-    if (bindRes == -1) {
-        throw BindException(errno);
-    }
+    if (bindRes == -1) throw BindException(errno);
 }
 
 void Server::Listen(int sock) {
     int listenRes = listen(sock, SOMAXCONN);
-    if (listenRes == -1) {
-        throw ListenException(errno);
-    }
+    if (listenRes == -1) throw ListenException(errno);
 }
 
 int Server::Accept(int sock) {
@@ -25,8 +21,6 @@ int Server::Accept(int sock) {
     socklen_t clientSize = sizeof(client);
 
     int clientSocket = accept(sock, (sockaddr*)&client, &clientSize);
-    if (clientSocket == -1) {
-        throw AcceptException(errno);
-    }
+    if (clientSocket == -1) throw AcceptException(errno);
     return clientSocket;
 }

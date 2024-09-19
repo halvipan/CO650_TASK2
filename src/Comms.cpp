@@ -14,9 +14,7 @@ Comms::Comms() {
 
 int Comms::CreateSocket() {
     int sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (sock == -1) {
-        throw CreateSocketException(errno);
-    }
+    if (sock == -1) throw CreateSocketException(errno);
     return sock;
 }
 
