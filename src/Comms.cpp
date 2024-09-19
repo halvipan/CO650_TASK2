@@ -3,6 +3,7 @@
 #include <pthread.h>
 #include "Comms.h"
 #include "CreateSocketException.h"
+#include "SendException.h"
 
 Comms::Comms() {
     std::string address = "127.0.0.1";
@@ -32,8 +33,7 @@ void Comms::SendAndReceive(int socket) {
             break;
 
         int sendRes = send(socket, message, 200, 0);
-        if (sendRes == -1)
-            std::cout << "Server: send() error" << std::endl;
+        if (sendRes == -1) throw SendException(errno);
     }
 }
 
@@ -56,8 +56,6 @@ void* Comms::receiver(void *sock) {
             std::cout.flush();
         }
     }
-
-    std::terminate();
 }
 
 bool Comms::ShutdownCondition(char* message) {
