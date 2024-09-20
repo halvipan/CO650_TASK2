@@ -8,7 +8,7 @@ public:
     void Connect(int sock);
     void SendAndReceive(int socket) override;
 private:
-    static void* sender(void *sock);
+    static void sender(int socket);
 };
 
 #endif //CO650_TASK2_CLIENT_H

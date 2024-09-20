@@ -14,12 +14,10 @@ void Client::SendAndReceive(int socket) {
     pthread_t receiverThread;
     pthread_create(&receiverThread, nullptr, receiver, &socket);
 
-    sender(&socket);
+    sender(socket);
 }
 
-void* Client::sender(void *sock) {
-    int socket = *(int *)sock;
-
+void Client::sender(int socket) {
     while (true) {
         char message[200];
         std::cout << "> ";
@@ -30,6 +28,4 @@ void* Client::sender(void *sock) {
         int sendRes = send(socket, message, 200, 0);
         if (sendRes == -1) throw SendException(errno);
     }
-
-    return nullptr;
 }
